@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -11,14 +11,60 @@
 </head>
 
 <body>
-    <h1>Hello World!</h1>
+    <h1>Balança pelo Javascript!</h1>
 
-    We are using Node.js <span id="node-version"></span>, Chromium <span id="chrome-version"></span>, Electron <span id="electron-version"></span>, and Serialport <span id="serialport-version"></span>
-
+   
     <div id="error"></div>
-    <div id="ports"></div>
+    <div id="peso" style="font-size: 50px;"></div>
 </body>
 
 <script src="./renderer.js"></script>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Balança</title>
+</head>
+<body>
+    <h1>ws://localhost:8080</h1>
+    
+    <div id="output"></div>
+    <div id="output"></div>
+
+    <script>
+        // Endereço do servidor WebSocket (substitua pelo seu próprio endereço)
+        var serverAddress = "ws://localhost:8080";
+
+        // Cria uma instância de WebSocket
+        var socket = new WebSocket(serverAddress, "echo-protocol");
+
+        // Manipula a abertura da conexão
+        socket.onopen = function(event) {
+            addToOutput("Conexão estabelecida com o servidor.");
+        };
+
+        // Manipula a recepção de mensagens do servidor
+        socket.onmessage = function(event) {
+            addToOutput("Mensagem recebida do servidor: " + event.data);
+        };
+
+        // Manipula o fechamento da conexão
+        socket.onclose = function(event) {
+            addToOutput("Conexão com o servidor encerrada.");
+        };
+
+        // Função para adicionar mensagens à área de saída
+        function addToOutput(message) {
+            var outputDiv = document.getElementById("output");
+            var p = document.createElement("p");
+            p.textContent = message;
+            outputDiv.appendChild(p);
+        }
+    </script>
+</body>
+
 
 </html>
